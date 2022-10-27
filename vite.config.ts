@@ -5,8 +5,11 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      "@": resolve("src"),
-    },
+    alias: [
+      {
+        find: "@",
+        replacement: resolve(__dirname, 'src')
+      }
+    ]
   },
 })

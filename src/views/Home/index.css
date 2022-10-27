@@ -1,0 +1,76 @@
+.btn{
+    /* width: 90%; */
+    height: 50px;
+    background-color: aquamarine;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    margin :10px auto;
+
+}
+.name{
+    /* float: left; */
+    margin-right: 30px;
+}
+.delbtn{
+    color: blue;
+}
+.showYes{
+    /* display: block; */
+
+}
+.MyCollapsePanel{
+
+transition: height 500ms;
+    overflow: hidden;
+}
+.showNo{
+    width:99%;
+    height:0px;
+    margin:0 auto;
+    visibility: hidden;
+    transition:height 0.5s linear;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    -ms-border-radius:2px;
+    -o-border-radius:2px;
+}
+
+.jiantouBot{
+    width: 20px;
+    height: 20px;
+    /*background-color: aqua;
+    */border-width: 3px 3px 0 0;
+    position: absolute;
+    border-style:solid ;
+    transform: rotate(135deg);
+    /*transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    */right: 10px;
+ 
+}
+.jiantouTop{
+    width: 20px;
+    height: 20px;
+    /*background-color: aqua;
+    */border-width: 3px 3px 0 0;
+    position: absolute;
+    border-style:solid ;
+    transform: rotate(-45deg);
+    /*transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    */right: 10px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+}
+.item-insure{
+    margin: auto;
+    height: 50px;
+    background-color: rgb(214, 221, 221);
+    margin-top: 5px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
