@@ -12,4 +12,18 @@ export default defineConfig({
       }
     ]
   },
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    open: true,
+    cors: true,
+    proxy: {
+      '/api': {
+        target: 'https://mock.mengxuegu.com/mock/6412860cfe77f949bc0d7106/myTest',//easyMock
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    }
+
+  }
 })
