@@ -1,18 +1,18 @@
 
-export interface MateProps {
+
+export interface MetaProps {
     keepAlive?: boolean;
     requiresAuth?: boolean;
     title: string;
-    key?: string
+    key?: string;
 }
 
-
-export interface RouterObject {
+export interface RouteObject {
     caseSensitive?: boolean;
-    Children?: RouterObject[];
+    children?: RouteObject[];
     element?: React.ReactNode;
-    index?: boolean;
+    // index?: boolean;
     path?: string;
-    meta?: MateProps;
-    isLink?: string
+    meta?: MetaProps;
+    isLink?: string;
 }

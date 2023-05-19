@@ -5,6 +5,8 @@ const SwitchDark = (props: any) => {
     const { setThemeConfig, themeConfig } = props
     const onChange = (checked: boolean) => {
         setThemeConfig({ ...themeConfig, isDark: checked })
+        // console.log(props);
+
     }
     return (
         <Switch

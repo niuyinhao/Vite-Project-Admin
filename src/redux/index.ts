@@ -5,9 +5,14 @@ import storage from 'redux-persist/lib/storage';
 import reduxThunk from 'redux-thunk';
 import reduxPromise from 'redux-promise';
 import global from './modules/global/reducer';
-
+import menu from './modules/menu/reducer';
+import breadcrumb from './modules/breadcrumb/reducer';
+import tabs from './modules/tabs/reducer';
 const reduxcer = combineReducers({
-    global
+    global,
+    breadcrumb,
+    menu,
+    tabs
 });
 
 //redux 持久化配置

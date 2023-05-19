@@ -1,0 +1,59 @@
+.myTabs{
+    position: relative;
+    .ant-tabs{
+    background-color: #fff;
+    border-top: 1px solid rgb(226, 226, 226);
+    .ant-tabs-nav{
+        margin: 0;
+        padding: 0 10px;
+        .ant-tabs-nav-wrap{
+            .ant-tabs-nav-list{
+                .ant-tabs-tab{
+                    border: none;
+                    border-radius: 0%;
+                    .ant-tabs-tab-remove{
+                        position: absolute;
+                        right: 0;
+                        opacity: 0;
+                        transition: 0.1s ease-in-out;
+
+                    }
+                }
+
+                .ant-tabs-tab.ant-tabs-tab-with-remove {
+                    &:hover {
+                        .ant-tabs-tab-remove {
+                            top: 1px;
+                            margin: 7px;
+                            opacity: 1;
+                            transition: 0.1s ease-in-out;
+                        }
+                        .ant-tabs-tab-btn {
+                            transform: translateX(-9px);
+                        }
+                    }
+                }
+
+                .ant-tabs-tab-with-remove.ant-tabs-tab-active {
+                    .ant-tabs-tab-remove {
+                        top: 1px;
+                        margin: 7px;
+                        // color: @primary-color !important;
+                        opacity: 1 !important;
+                    }
+                    .ant-tabs-tab-btn {
+                        transform: translateX(-9px);
+                    }
+                }
+                    .ant-tabs-ink-bar {
+                        background-color: #1677ff;
+                        visibility: visible;
+                    }
+            }
+        }
+
+    }
+    }
+
+}
+

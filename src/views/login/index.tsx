@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import Style from './index.module.less'
 import { loginApi } from '@/api/modules/login';
+import { setTabsList } from '@/redux/modules/tabs/action'
 const Login = (props: any) => {
 
     console.log(props);
@@ -16,7 +17,8 @@ const Login = (props: any) => {
         const res = await loginApi({ username, password })
         console.log(res);
         if (res.code === '111') {
-            navigate('/demo')
+            props.setTabsList([])
+            navigate('/home/index')
         } else {
             message.success('账号密码错误')
         }
@@ -65,13 +67,7 @@ const Login = (props: any) => {
 
     )
 }
-const propsMaping = (state) => {
-    return {
-        state
-    }
+const actionMapping = {
+    setTabsList
 }
-const actionMapping = (dispath) => {
-    return {
-    }
-}
-export default connect(propsMaping, actionMapping)(Login);
+export default connect(null, actionMapping)(Login);

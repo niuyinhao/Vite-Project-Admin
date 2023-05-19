@@ -15,3 +15,20 @@ export interface GlobalState {
     language: string;
     themeConfig: ThemeConfigProp
 }
+
+/* MenuState */
+export interface MenuState {
+    isCollapse: boolean;
+    menuList: Menu.MenuOptions[];
+}
+
+export interface BreadcrumbState {
+    breadcrumbList: {
+        [key: string]: any
+    }
+}
+
+export interface TabsState {
+    tabsActive: string;
+    tabsList: Menu.MenuOptions[]
+}
