@@ -1,5 +1,6 @@
 import { RouteObject } from '@/routers/interface'
 import { saveAs } from "file-saver";
+import { set } from 'immer/dist/internal';
 
 
 /**
@@ -274,3 +275,159 @@ export function mergeColumnCell(
         }
     });
 }
+
+
+//手写实现Promise
+export class MyPromise {
+    private state: string = 'pending'//判断状态';
+    private value: any = undefined;
+    private resason: any = undefined;
+    private onResolveCallbacks: any[] = [];
+    private onRejectCallbacks: any[] = [];
+    constructor(fn) {
+        let resolve = (value) => {
+            if (this.state === 'pending') {
+                this.state = 'fulfilled';
+                this.value = value;
+                this.onResolveCallbacks.forEach(fn => fn());
+            }
+        }
+        let reject = (reason) => {
+            if (this.state === 'pending') {
+                this.state = 'rejected';
+                this.resason = reason;
+                this.onRejectCallbacks.forEach(fn => fn());
+            }
+        }
+        try {
+            fn(resolve, reject);
+        } catch (error) {
+            reject(error);
+        }
+    }
+    resolvePromise(x, resolve, reject, promise2) {
+        if (promise2 === x) {
+            return reject(new TypeError('多一次封装'));
+        }
+        if (x instanceof MyPromise) {
+            x.then(value => {
+                resolve(value);
+            }, error => {
+                reject(error);
+            })
+        } else {
+            resolve(x)
+        }
+    }
+
+    then(onFulfilled, onRejected: any = null) {
+        let promise2 = new MyPromise((resolve, reject) => {
+            if (this.state === 'fulfilled') {
+                setTimeout(() => {
+                    try {
+                        let x = onFulfilled(this.value);
+                        this.resolvePromise(x, resolve, reject, promise2)
+                    } catch (error) {
+                        reject(error);
+                    }
+                }, 0)
+            }
+            if (this.state === 'rejected') {
+                setTimeout(() => {
+                    try {
+                        let x = onRejected(this.resason);
+                        this.resolvePromise(x, resolve, reject, promise2)
+                    } catch (error) {
+                        reject(error);
+                    }
+                }, 0)
+            }
+
+            if (this.state === 'pending') {
+                this.onResolveCallbacks.push(() => {
+                    setTimeout(() => {
+                        try {
+                            let x = onFulfilled(this.value);
+                            this.resolvePromise(x, resolve, reject, promise2)
+                        } catch (error) {
+                            reject(error);
+                        }
+                    }, 0)
+                })
+                this.onRejectCallbacks.push(() => {
+                    setTimeout(() => {
+                        try {
+                            let x = onRejected(this.resason);
+                            this.resolvePromise(x, resolve, reject, promise2)
+                        } catch (error) {
+                            reject(error);
+                        }
+                    }, 0)
+                })
+            }
+        })
+        return promise2
+    }
+
+    static resolve(value) {
+        return new MyPromise((resolve, reject) => {
+            resolve(value);
+        })
+    }
+
+    static reject(reason) {
+        return new MyPromise((resolve, reject) => {
+            reject(reason);
+        })
+
+    }
+    static race(promise) {
+        return new MyPromise((resolve, reject) => {
+            for (let i = 0; i < promise.length; i++) {
+                const current = promise[i];
+                current.then(resolve, reject)
+            }
+        })
+    }
+
+    static all(promise) {
+        let arr: any[] = [];
+        let i = 0;
+        function procesDassData(index, data, resolve) {
+            arr[index] = data;
+            i++;
+            if (i === promise.length) {
+                resolve(arr);
+            }
+        }
+        return new MyPromise((resolve, reject) => {
+            for (let j = 0; j < promise.length; j++) {
+                promise[j].then(data => {
+                    procesDassData(j, data, resolve);
+
+                }, reject)
+            }
+        })
+
+    }
+}
+//测试
+const p = new MyPromise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(100)
+    }, 1000)
+})
+p.then((res: any) => {
+    console.log(res)
+    return new MyPromise((resolve: any) => {
+        resolve(200 + res)
+
+    })
+}).then((res: any) => {
+    console.log(res)
+})
+
+
+
+
+
